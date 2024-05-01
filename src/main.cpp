@@ -101,3 +101,9 @@ int Game::run()
 
     return 0;
 }
+
+int main()
+{
+    Game game;
+    return game.run();
+}
