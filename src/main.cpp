@@ -4,6 +4,7 @@
 struct PlayerMovement
 {
     bool up, down, left, right;
+    PlayerMovement() : up(false), down(false), left(false), right(false) {}
 };
 
 class Game
@@ -25,12 +26,10 @@ private:
 };
 
 Game::Game()
-    : mWindow(sf::VideoMode(640, 480), "SFML Application")
-    , mPlayer(10.f)
-    , mPlayerMovement({false, false, false, false})
-    , mPlayerSpeed(100.f)
-    , mClock()
 {
+    mWindow.create(sf::VideoMode(640 * 2, 480 * 2), "SFML Game");
+    mPlayerSpeed = 100.f;
+    mPlayer.setRadius(10.f);
     mPlayer.setFillColor(sf::Color::Cyan);
     mPlayer.setPosition(100.f, 100.f);
 }
@@ -50,6 +49,15 @@ void Game::processEvents()
                 break;
             case sf::Event::Closed:
                 mWindow.close();
+                break;
+            case sf::Event::Resized:
+                mWindow.setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
+                break;
+            case sf::Event::LostFocus:
+            case sf::Event::GainedFocus:
+                mClock.restart();
+                break;
+            default:
                 break;
         }
     }
