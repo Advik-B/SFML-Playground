@@ -42,7 +42,7 @@ FetchContent_MakeAvailable(imgui-sfml)
 
 add_executable(SFML_UI src/main.cpp)
 target_link_libraries(SFML_UI PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML)
-target_compile_features(SFML_UI PRIVATE cxx_std_17)
+target_compile_features(SFML_UI PRIVATE cxx_std_20)
 
 if(WIN32)
     add_custom_command(

@@ -7,21 +7,6 @@
 
 #include "fonts/JBmono.hpp" // JetBrain Mono font(bin2hex)
 
-constexpr double pi = 3.14159265358979323846;
-
-int getPointCount(const sf::RenderWindow &window, const sf::CircleShape &circle) {
-    // Get the size of the window
-    unsigned windowSize = window.getSize().x * window.getSize().y / 100000;
-
-    // Get the radius of the circle
-    float radius = circle.getRadius();
-
-    // Calculate the number of points needed to approximate the circle
-    int pcout = static_cast<int>(radius * windowSize / 10);
-    std::cout << "Point Count: " << pcout << '\n';
-    return pcout;
-}
-
 // Function that maps a pointer from a Color to a float (for ImGui)
 float *colorToFloat(sf::Color &color) {
     // Do NOT use reinterpret_cast<float*>(&color) as it will not work, it will only convert the first byte of the color
@@ -186,4 +171,6 @@ Game::~Game() {
     ImGui::SFML::Shutdown();
 }
 
-int main() { return Game().run(); }
+int main() {
+    return Game().run();
+}
