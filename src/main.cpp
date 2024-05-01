@@ -32,7 +32,7 @@ private:
     sf::RenderWindow mWindow;
     sf::Clock mClock;
     ImGuiIO *io;
-    int grid_size = 10;
+    int grid_size = 60;
     sf::Color gridColor;
 
 };
@@ -121,10 +121,10 @@ void Game::imRender() {
     ImGui::SetNextWindowSize(ImVec2(300, 150), ImGuiCond_FirstUseEver);
     ImGui::Begin("Game Settings");
     auto colorFloat = colorToFloat(gridColor);
-    if (ImGui::ColorEdit4("Grid Color", colorFloat, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_NoAlpha)) {
+    if (ImGui::ColorEdit4("Grid Color", colorFloat, ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_NoAlpha)) {
         gridColor = sf::Color(colorFloat[0] * 255, colorFloat[1] * 255, colorFloat[2] * 255, colorFloat[3] * 255);
     }
-    ImGui::SliderInt("Grid Size", &grid_size, 1, 100);
+    ImGui::SliderInt("Grid Size", &grid_size, 1, 200);
     ImGui::End();
     if (io->ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
     {
