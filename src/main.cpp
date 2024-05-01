@@ -9,12 +9,6 @@
 
 constexpr double pi = 3.14159265358979323846;
 
-struct PlayerMovement
-{
-    bool up, down, left, right;
-    PlayerMovement() : up(false), down(false), left(false), right(false) {}
-};
-
 int getPointCount(const sf::RenderWindow &window, const sf::CircleShape &circle) {
     // Get the size of the window
     unsigned windowSize = window.getSize().x * window.getSize().y / 100000;
@@ -48,14 +42,10 @@ private:
     void render();
     void handleKeyBoardInput(sf::Keyboard::Key key, bool isPressed);
     void onResize(sf::Event::SizeEvent size);
-    void _updatePlayer_sprite();
     void imRender();
     void drawGrid();
 
     sf::RenderWindow mWindow;
-    sf::CircleShape mPlayer;
-    PlayerMovement mPlayerMovement;
-    float mPlayerSpeed;
     sf::Clock mClock;
     ImGuiIO *io;
     int grid_size = 10;
@@ -66,11 +56,6 @@ private:
 Game::Game()
 {
     mWindow.create(sf::VideoMode(640 * 2, 480 * 2), "SFML Game");
-    mPlayerSpeed = 100.f * 2;
-    mPlayer.setRadius(10.f);
-    mPlayer.setPointCount(getPointCount(mWindow, mPlayer));
-    mPlayer.setFillColor(sf::Color{100, 250, 50});
-    mPlayer.setPosition(100.f, 100.f);
     mWindow.setVerticalSyncEnabled(true);
     gridColor = sf::Color{100, 100, 100};
     ImGui::SFML::Init(mWindow, false);
@@ -80,15 +65,13 @@ Game::Game()
     io->ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     io->ConfigFlags |= ImGuiConfigFlags_DpiEnableScaleViewports;
     io->ConfigFlags |= ImGuiConfigFlags_DpiEnableScaleFonts;
+
     // Calculate the size of the font
     /*
      unsigned char JBmono[] = { 0x00, 0x01, 0x00, ...};
      */
     ImFontConfig font_config;
     font_config.FontDataOwnedByAtlas = false;
-    // Make the font bold
-//    font_config.GlyphExtraSpacing.x = 1.0f;
-//    font_config.GlyphExtraSpacing.y = 1.0f;
 
     io->Fonts->AddFontFromMemoryTTF(JBmono, sizeof(JBmono), 16.5f, &font_config);
     ImGui::SFML::UpdateFontTexture();
@@ -128,26 +111,13 @@ void Game::processEvents()
 
 void Game::update()
 {
-    sf::Vector2f movement(0.f, 0.f);
-    if (mPlayerMovement.left)
-        movement.x -= mPlayerSpeed;
-    if (mPlayerMovement.right)
-        movement.x += mPlayerSpeed;
-    if (mPlayerMovement.up)
-        movement.y -= mPlayerSpeed;
-    if (mPlayerMovement.down)
-        movement.y += mPlayerSpeed;
-
-    sf::Time dt = mClock.restart();
-    ImGui::SFML::Update(mWindow, dt);
-    mPlayer.move(movement * dt.asSeconds());
+    ImGui::SFML::Update(mWindow, mClock.restart());
 }
 
 void Game::render()
 {
     mWindow.clear();
     drawGrid();
-    mWindow.draw(mPlayer);
     imRender();
     ImGui::SFML::Render(mWindow);
     mWindow.display();
@@ -155,29 +125,9 @@ void Game::render()
 
 void Game::handleKeyBoardInput(sf::Keyboard::Key key, bool isPressed)
 {
+    return; // Nothing to be done
     switch (key)
     {
-        case sf::Keyboard::W:
-            mPlayerMovement.up = isPressed;
-            break;
-        case sf::Keyboard::S:
-            mPlayerMovement.down = isPressed;
-            break;
-        case sf::Keyboard::A:
-            mPlayerMovement.left = isPressed;
-            break;
-        case sf::Keyboard::D:
-            mPlayerMovement.right = isPressed;
-            break;
-
-        case sf::Keyboard::Equal:
-            mPlayer.setRadius(mPlayer.getRadius() + 1);
-            _updatePlayer_sprite();
-            break;
-        case sf::Keyboard::Dash:
-            mPlayer.setRadius(mPlayer.getRadius() - 1);
-            _updatePlayer_sprite();
-            break;
         default:
             break;
     }
@@ -186,7 +136,6 @@ void Game::handleKeyBoardInput(sf::Keyboard::Key key, bool isPressed)
 void Game::imRender() {
     ImGui::SetNextWindowSize(ImVec2(300, 150), ImGuiCond_FirstUseEver);
     ImGui::Begin("Game Settings");
-    ImGui::SliderFloat("Player Speed", &mPlayerSpeed, 0.f, 500.f);
     auto colorFloat = colorToFloat(gridColor);
     if (ImGui::ColorEdit4("Grid Color", colorFloat, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_NoTooltip | ImGuiColorEditFlags_NoAlpha)) {
         gridColor = sf::Color(colorFloat[0] * 255, colorFloat[1] * 255, colorFloat[2] * 255, colorFloat[3] * 255);
@@ -216,11 +165,6 @@ int Game::run()
 
 void Game::onResize(sf::Event::SizeEvent size) {
     mWindow.setView(sf::View(sf::FloatRect(0, 0, size.width, size.height)));
-    _updatePlayer_sprite();
-}
-
-void Game::_updatePlayer_sprite() {
-    mPlayer.setPointCount(getPointCount(mWindow, mPlayer));
 }
 
 void Game::drawGrid() {
