@@ -10,6 +10,9 @@ typedef std::vector<std::string> Text;
 class TextBox {
     public:
         TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font font, sf::Text &displayText);
+
+    TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font font);
+
 //        ~TextBox();
         void update(sf::Event &event);
         void draw_to(sf::RenderWindow &window);
@@ -36,12 +39,12 @@ class TextBox {
         sf::Color backgroundColor;
         Text text;
         sf::RectangleShape box;
-        sf::Text displayText;
+        sf::Text displayText = sf::Text();
         bool isFocused;
         void _update();
 };
 
-TextBox::TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font font) {
+TextBox::TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font font) : displayText() {
     this->position = position;
     this->scale = size;
     this->font = font;
@@ -173,6 +176,24 @@ sf::Color TextBox::getOutlineColor() {
 
 sf::Color TextBox::getBackgroundColor() {
     return this->backgroundColor;
+}
+
+TextBox::TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font font, sf::Text &displayText) {
+    this->position = position;
+    this->scale = size;
+    this->font = font;
+    this->box = sf::RectangleShape(size);
+    this->box.setPosition(position);
+    this->box.setFillColor(sf::Color::White);
+    this->box.setOutlineColor(sf::Color::Black);
+    this->box.setOutlineThickness(1);
+    this->displayText = displayText;
+    this->displayText.setFont(font);
+    this->displayText.setPosition(position);
+    this->displayText.setFillColor(sf::Color::Black);
+    this->displayText.setCharacterSize(20);
+    this->isFocused = false;
+
 }
 
 //TextBox::~TextBox() {}
