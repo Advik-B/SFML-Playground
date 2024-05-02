@@ -37,10 +37,13 @@ int main() {
     texture.create(2, 2);
     texture.update(texels);
     sprite.setTexture(texture);
-    sprite.setScale(200.f / 2, 200.f / 2);
+    sprite.setScale(200.f / 3, 200.f / 3);
     sprite.setPosition(100, 100);
     // Set the origin of the sprite to the center
     sprite.setOrigin(1, 1);
+
+    // Skew the sprite
+//    sprite.setScale(1, 0.5);
 
     __(window);
     sf::Clock clock;
@@ -60,8 +63,8 @@ int main() {
 
         auto dt = clock.restart();
         // Update the sprite
-        sprite.rotate(dt.asSeconds());
-        sprite.move(100 * dt.asSeconds(), 0);
+        sprite.rotate(dt.asSeconds() * 150);
+        sprite.move(100 * dt.asSeconds(), 1);
 
     }
 
