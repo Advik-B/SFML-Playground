@@ -7,8 +7,11 @@ void onResize(const sf::Event::SizeEvent& sizeEvent, sf::RenderWindow& window)
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(850, 600), "SFML works!");
-
+    sf::RenderWindow window(
+            sf::VideoMode(850, 600),
+            ""
+    );
+    window.setVerticalSyncEnabled(true);
     sf::Sprite sprite;
     sf::Texture texture;
     unsigned char texels[] = {
@@ -23,6 +26,10 @@ int main()
     sprite.setScale(200.f / 2, 200.f / 2);
     sprite.setPosition(100, 100);
 
+    // Set the origin of the sprite to the center
+    sprite.setOrigin(1, 1);
+
+    sf::Clock clock;
     while (window.isOpen()) {
         sf::Event event{};
         while (window.pollEvent(event)) {
@@ -35,6 +42,12 @@ int main()
         window.clear();
         window.draw(sprite);
         window.display();
+
+        auto dt = clock.restart();
+        // Update the sprite
+        sprite.rotate(dt.asSeconds());
+        sprite.move(100 * dt.asSeconds(),0);
+
     }
 
     return 0;
