@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "icecream.hpp"
+#include "TextInput.cpp"
 
 inline void onResize(const sf::Event::SizeEvent &sizeEvent, sf::RenderWindow &window) {
     window.setView(
@@ -38,6 +39,10 @@ int main() {
     // Set the origin of the sprite to the center
     sprite.setOrigin(1, 1);
 
+    TextInput textInput(window);
+    textInput.setPosition(100, 100);
+    textInput.setPadding(5);
+
     sf::Clock clock;
     while (window.isOpen()) {
         sf::Event event{};
@@ -46,10 +51,15 @@ int main() {
                 window.close();
             else if (event.type == sf::Event::Resized)
                 onResize(event.size, window);
+            else {
+                textInput.update(event);
+            }
+
         }
 
         window.clear();
         window.draw(sprite);
+        textInput.draw();
         window.display();
 
         auto dt = clock.restart();
