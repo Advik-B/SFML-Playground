@@ -1,12 +1,20 @@
 #include <SFML/Graphics.hpp>
+#include "icecream.hpp"
 
-void onResize(const sf::Event::SizeEvent& sizeEvent, sf::RenderWindow& window)
-{
-    window.setView(sf::View(sf::FloatRect(0, 0, sizeEvent.width, sizeEvent.height)));
+inline void onResize(const sf::Event::SizeEvent &sizeEvent, sf::RenderWindow &window) {
+    window.setView(
+            sf::View(
+                    sf::FloatRect(
+                            0,
+                            0,
+                            sizeEvent.width,
+                            sizeEvent.height
+                    )
+            )
+    );
 }
 
-int main()
-{
+int main() {
     sf::RenderWindow window(
             sf::VideoMode(850, 600),
             ""
@@ -14,11 +22,12 @@ int main()
     window.setVerticalSyncEnabled(true);
     sf::Sprite sprite;
     sf::Texture texture;
+    IC(window.getSize().x, window.getSize().y);
     unsigned char texels[] = {
-        255, 0, 0, 255,
-        0, 255, 0, 255,
-        0, 0, 255, 255,
-        255, 255, 0, 255,
+            255, 0, 0, 255,
+            0, 255, 0, 255,
+            0, 0, 255, 255,
+            255, 255, 0, 255,
     };
     texture.create(2, 2);
     texture.update(texels);
@@ -46,7 +55,7 @@ int main()
         auto dt = clock.restart();
         // Update the sprite
         sprite.rotate(dt.asSeconds());
-        sprite.move(100 * dt.asSeconds(),0);
+        sprite.move(100 * dt.asSeconds(), 0);
 
     }
 
