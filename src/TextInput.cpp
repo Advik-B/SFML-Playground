@@ -96,7 +96,7 @@ private:
         window.draw(cursor);
     }
 
-    void _drawText() {
+    inline void _drawText() {
         window.draw(text);
     }
 
@@ -116,7 +116,7 @@ private:
          *
          * NOTE: DO NOT USE 65-127 as a whole range, only use the specific ranges you need
          */
-        
+
         std::string sanitized_input;
         for (auto &c : input) {
             if ((c >= 65 && c <= 90) or (c >= 97 && c <= 122) or (c >= 48 && c <= 57) or (c >= 33 && c <= 47) or c == 32) {
