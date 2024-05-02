@@ -9,8 +9,8 @@ typedef std::vector<std::string> Text;
 
 class TextBox {
     public:
-        TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font font);
-        ~TextBox();
+        TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font font, sf::Text &displayText);
+//        ~TextBox();
         void update(sf::Event &event);
         void draw_to(sf::RenderWindow &window);
         void setPosition(sf::Vector2f position);
@@ -50,7 +50,7 @@ TextBox::TextBox(sf::Vector2f position, sf::Vector2f size, sf::Font font) {
     this->box.setFillColor(sf::Color::White);
     this->box.setOutlineColor(sf::Color::Black);
     this->box.setOutlineThickness(1);
-    this->displayText = sf::Text("", font);
+    this->displayText.setFont(font);
     this->displayText.setPosition(position);
     this->displayText.setFillColor(sf::Color::Black);
     this->displayText.setCharacterSize(20);
@@ -78,11 +78,11 @@ void TextBox::setText(Text text) {
 }
 
 void TextBox::_update() {
-    std::string displayText;
+    std::string displayText_;
     for (std::string line : this->text) {
-        displayText += line + '\n';
+        displayText_ += line + '\n';
     }
-    this->displayText.setString(displayText);
+    this->displayText.setString(displayText_);
 }
 
 void TextBox::update(sf::Event &event) {
@@ -111,8 +111,11 @@ void TextBox::update(sf::Event &event) {
 }
 
 void TextBox::draw_to(sf::RenderWindow &window) {
-    window.draw(this->box);
-    window.draw(this->displayText);
+    IC();
+    window.draw(box);
+    IC();
+    window.draw(displayText);
+    IC();
 }
 
 void TextBox::setPosition(sf::Vector2f position) {
@@ -172,4 +175,4 @@ sf::Color TextBox::getBackgroundColor() {
     return this->backgroundColor;
 }
 
-TextBox::~TextBox() {}
+//TextBox::~TextBox() {}
