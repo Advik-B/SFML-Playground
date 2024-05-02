@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include "icecream.hpp"
 
+
 inline void __(sf::RenderWindow &window) {
     auto size = sf::Vector2<sf::Uint32>(window.getSize().x, window.getSize().y);
     IC(size.x, size.y);
