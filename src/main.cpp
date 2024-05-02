@@ -2,6 +2,11 @@
 #include "icecream.hpp"
 #include "TextInput.cpp"
 
+inline void _(sf::RenderWindow &window) {
+    auto size = sf::Vector2<sf::Uint32>(window.getSize().x, window.getSize().y);
+    IC(size.x, size.y);
+}
+
 inline void onResize(const sf::Event::SizeEvent &sizeEvent, sf::RenderWindow &window) {
     window.setView(
             sf::View(
@@ -13,6 +18,7 @@ inline void onResize(const sf::Event::SizeEvent &sizeEvent, sf::RenderWindow &wi
                     )
             )
     );
+    _(window);
 }
 
 int main() {
@@ -23,7 +29,6 @@ int main() {
     window.setVerticalSyncEnabled(true);
     sf::Sprite sprite;
     sf::Texture texture;
-    IC(window.getSize().x, window.getSize().y);
     unsigned char texels[] = {
             255, 0, 0, 255,
             0, 255, 0, 255,
@@ -42,7 +47,7 @@ int main() {
     TextInput textInput(window);
     textInput.setPosition(100, 100);
     textInput.setPadding(5);
-
+    _(window);
     sf::Clock clock;
     while (window.isOpen()) {
         sf::Event event{};
