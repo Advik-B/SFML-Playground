@@ -113,7 +113,16 @@ private:
          * Punctuation marks: 33-47 (!-/)
          * Control characters: 0-31 (and 127)
          * Special characters: 32 (space), 127 (delete)
+         *
+         * NOTE: DO NOT USE 65-127 as a whole range, only use the specific ranges you need
          */
-
+        
+        std::string sanitized_input;
+        for (auto &c : input) {
+            if ((c >= 65 && c <= 90) or (c >= 97 && c <= 122) or (c >= 48 && c <= 57) or (c >= 33 && c <= 47) or c == 32) {
+                sanitized_input += c;
+            }
+        }
+        input = sanitized_input;
     }
 };
