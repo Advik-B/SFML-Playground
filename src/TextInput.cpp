@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Event.hpp>
 #include "Nunito.hpp"
+#include "icecream.hpp"
+#include <string>
 
 class TextInput {
 public:
@@ -26,7 +28,7 @@ public:
         _drawCursor();
     }
 
-    inline void setPosition(float x, float y) {
+    void setPosition(float x, float y) {
         position = {x, y};
         text.setPosition(x, y);
         rectangle.setPosition(x + 5, y + 5);
@@ -34,6 +36,10 @@ public:
 
     inline void setPadding(float new_padding) {
         padding = new_padding;
+    }
+
+    [[maybe_unused]] inline std::string getInput() {
+        return input;
     }
 
     void update(sf::Event event) {
@@ -71,6 +77,8 @@ private:
     }
 
     void _updateText() {
+        _sanitizeInput();
+        IC(input);
         rectangle.setSize(sf::Vector2f(text.getLocalBounds().width + 10, text.getLocalBounds().height + 10));
         // Set the position of the rectangle to be 5 pixels away from the text
         rectangle.setPosition(position.x - padding, position.y + padding);
@@ -82,6 +90,7 @@ private:
         auto bounds = text.getLocalBounds();
         sf::RectangleShape cursor;
         cursor.setSize(sf::Vector2f(1, bounds.height + padding));
+        cursor.setOrigin(0, 0);
         cursor.setFillColor(sf::Color::White);
         cursor.setPosition(bounds.width, position.y);
         window.draw(cursor);
@@ -89,5 +98,22 @@ private:
 
     void _drawText() {
         window.draw(text);
+    }
+
+    void _sanitizeInput() {
+        // Remove any non-ascii characters
+        if (input.empty()) {
+            return;
+        }
+        /*
+         * Valid Range of ASCII characters:
+         * Uppercase letters: 65-90 (A-Z)
+         * Lowercase letters: 97-122 (a-z)
+         * Numbers: 48-57 (0-9)
+         * Punctuation marks: 33-47 (!-/)
+         * Control characters: 0-31 (and 127)
+         * Special characters: 32 (space), 127 (delete)
+         */
+
     }
 };
