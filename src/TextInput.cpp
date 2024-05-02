@@ -78,7 +78,6 @@ private:
 
     void _updateText() {
         _sanitizeInput();
-        IC(input);
         rectangle.setSize(sf::Vector2f(text.getLocalBounds().width + 10, text.getLocalBounds().height + 10));
         // Set the position of the rectangle to be 5 pixels away from the text
         rectangle.setPosition(position.x - padding, position.y + padding);
@@ -123,6 +122,8 @@ private:
                 sanitized_input += c;
             }
         }
+
+        if (sanitized_input != input) IC(sanitized_input, input);
         input = sanitized_input;
     }
 };
