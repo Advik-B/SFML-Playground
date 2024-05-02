@@ -52,7 +52,9 @@ int main() {
     TextBox textBox(
             sf::Vector2f(100, 100),
             sf::Vector2f(200, 200),
-            font, <#initializer#>);
+            font,
+            sf::Text(),
+    );
     IC();
     __(window);
     sf::Clock clock;
