@@ -109,3 +109,67 @@ void TextBox::update(sf::Event &event) {
         this->_update();
     }
 }
+
+void TextBox::draw_to(sf::RenderWindow &window) {
+    window.draw(this->box);
+    window.draw(this->displayText);
+}
+
+void TextBox::setPosition(sf::Vector2f position) {
+    this->position = position;
+    this->box.setPosition(position);
+    this->displayText.setPosition(position);
+}
+
+void TextBox::setScale(sf::Vector2f scale) {
+    this->scale = scale;
+    this->box.setSize(scale);
+    this->_update();
+}
+
+void TextBox::setFont(sf::Font font) {
+    this->font = font;
+    this->displayText.setFont(font);
+    this->_update();
+}
+
+void TextBox::setTextColor(sf::Color textColor) {
+    this->textColor = textColor;
+    this->displayText.setFillColor(textColor);
+}
+
+void TextBox::setOutlineColor(sf::Color outlineColor) {
+    this->outlineColor = outlineColor;
+    this->box.setOutlineColor(outlineColor);
+}
+
+void TextBox::setBackgroundColor(sf::Color backgroundColor) {
+    this->backgroundColor = backgroundColor;
+    this->box.setFillColor(backgroundColor);
+}
+
+sf::Vector2f TextBox::getPosition() {
+    return this->position;
+}
+
+sf::Vector2f TextBox::getScale() {
+    return this->scale;
+}
+
+sf::Font TextBox::getFont() {
+    return this->font;
+}
+
+sf::Color TextBox::getTextColor() {
+    return this->textColor;
+}
+
+sf::Color TextBox::getOutlineColor() {
+    return this->outlineColor;
+}
+
+sf::Color TextBox::getBackgroundColor() {
+    return this->backgroundColor;
+}
+
+TextBox::~TextBox() {}
