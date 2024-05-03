@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 #include "icecream.hpp"
-#include "TextInput.cpp"
 inline void __(sf::RenderWindow &window) {
     auto size = sf::Vector2<sf::Uint32>(window.getSize().x, window.getSize().y);
     IC(size.x, size.y);
@@ -49,13 +48,6 @@ int main() {
         IC("Failed to load font");
         return 1;
     }
-    TextBox textBox(
-            sf::Vector2f(100, 100),
-            sf::Vector2f(200, 200),
-            font,
-            sf::Text(),
-    )
-    IC();
     __(window);
     sf::Clock clock;
     while (window.isOpen()) {
@@ -65,17 +57,11 @@ int main() {
                 window.close();
             else if (event.type == sf::Event::Resized)
                 onResize(event.size, window);
-            else {
-                IC();
-                textBox.update(event);
-                IC();
-            }
+
         }
 
         window.clear();
         window.draw(sprite);
-        textBox.draw_to(window);
-        IC();
         window.display();
 
         auto dt = clock.restart();
