@@ -54,7 +54,7 @@ int main() {
             sf::Vector2f(200, 200),
             font,
             sf::Text(),
-    );
+    )
     IC();
     __(window);
     sf::Clock clock;
