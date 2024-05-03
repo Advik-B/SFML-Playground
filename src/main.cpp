@@ -2,10 +2,13 @@
 
 #include <SFML/Graphics.hpp>
 #include "icecream.hpp"
-inline void __(sf::RenderWindow &window) {
-    auto size = sf::Vector2<sf::Uint32>(window.getSize().x, window.getSize().y);
-    IC(size.x, size.y);
-}
+#include "fonts/Roboto-Regular.hpp"
+
+class Button {
+private:
+    sf::Text text;
+    sf::Font font;
+};
 
 void onResize(const sf::Event::SizeEvent &sizeEvent, sf::RenderWindow &window) {
     window.setView(
@@ -18,7 +21,14 @@ void onResize(const sf::Event::SizeEvent &sizeEvent, sf::RenderWindow &window) {
                     )
             )
     );
-    __(window);
+    IC(window.getSize().x, window.getSize().y);
+}
+
+sf::Texture *screenshot(sf::RenderWindow &window) {
+    auto *texture = new sf::Texture();
+    texture->create(window.getSize().x, window.getSize().y);
+    texture->update(window);
+    return texture;
 }
 
 int main() {
@@ -44,11 +54,28 @@ int main() {
     sprite.setOrigin(1, 1);
 
     sf::Font font;
-    if (!font.loadFromFile("Roboto-Regular.ttf")) {
-        IC("Failed to load font");
+    if (!font.loadFromMemory(Roboto, sizeof(Roboto))) {
+        IC("Failed to load font", Roboto);
         return 1;
     }
-    __(window);
+    // Make a text and rasterize it into a texture
+    sf::Text text;
+    text.setFont(font);
+    text.setString("Hello, World!");
+    text.setCharacterSize(24);
+    text.setFillColor(sf::Color::White);
+    text.setStyle(sf::Text::Bold);
+    text.setPosition(100, 100);
+    // Set the origin of the text to the center
+    text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
+    sf::Texture *textTexture = screenshot(window);
+    sf::Sprite textSprite(*textTexture);
+    textSprite.setPosition(100, 100);
+    textSprite.setScale(0.5, 0.5);
+    textSprite.setOrigin(textSprite.getLocalBounds().width / 2, textSprite.getLocalBounds().height / 2);
+
+
+
     sf::Clock clock;
     while (window.isOpen()) {
         sf::Event event{};
@@ -61,13 +88,16 @@ int main() {
         }
 
         window.clear();
+        window.draw(textSprite);
         window.draw(sprite);
         window.display();
+        textSprite.setTexture(*screenshot(window));
 
         auto dt = clock.restart();
         // Update the sprite
         sprite.rotate(dt.asSeconds() * 150);
         sprite.move(100 * dt.asSeconds(), 1);
+        textSprite.rotate(dt.asSeconds() * 150);
 
     }
 
