@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "icecream.hpp"
-#include "fonts/Roboto-Regular.hpp"
+//#include "fonts/Roboto-Regular.hpp"
 #include "pratibha.hpp"
 
 class Button {
@@ -55,21 +55,11 @@ int main() {
     // Set the origin of the sprite to the center
     sprite.setOrigin(1, 1);
 
-    sf::Font font;
-    if (!font.loadFromMemory(Roboto, sizeof(Roboto))) {
-        IC("Failed to load font", Roboto);
-        return 1;
-    }
-    // Make a text and rasterize it into a texture
-    sf::Text text;
-    text.setFont(font);
-    text.setString("Hello, World!");
-    text.setCharacterSize(24);
-    text.setFillColor(sf::Color::White);
-    text.setStyle(sf::Text::Bold);
-    text.setPosition(100, 100);
-    // Set the origin of the text to the center
-    text.setOrigin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
+//    sf::Font font;
+//    if (!font.loadFromMemory(Roboto, sizeof(Roboto))) {
+//        IC("Failed to load font", Roboto);
+//        return 1;
+//    }
     sf::Texture *textTexture = screenGrab(window);
     sf::Sprite textSprite(*textTexture);
     textSprite.setPosition(100, 100);
