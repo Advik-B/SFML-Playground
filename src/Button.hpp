@@ -2,6 +2,7 @@
 #define SFML_PLAYGROUND_BUTTON_HPP
 
 #include <SFML/Graphics.hpp>
+#include "StandardCursor.hpp"
 
 namespace UI {
 
@@ -33,7 +34,7 @@ namespace UI {
         void setFontSize(unsigned int size);
 
         bool isPressed(const sf::Event& ev);
-        void update(const sf::Vector2f& mousePos);
+        void update(const sf::Vector2i& mousePos, sf::Window& window);
     };
 
 } // UI
