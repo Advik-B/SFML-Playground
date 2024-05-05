@@ -2,6 +2,7 @@
 #include "Game.hpp"
 #include "fonts/Roboto-Regular.hpp"
 #include "pratibha.hpp"
+#include "icecream.hpp"
 
 void Game::initVariables() {
     this->window = nullptr;
@@ -67,8 +68,7 @@ while (this->window->pollEvent(this->ev)) {
                 break;
             default:
                 if (this->button.isPressed(ev)) {
-                    std::cout << "Button Pressed" << std::endl;
-                    button.setBackColor(sf::Color::Green);
+                    IC();
                 }
                 break;
         }
