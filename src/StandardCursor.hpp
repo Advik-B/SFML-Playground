@@ -30,7 +30,7 @@ namespace sf
         #endif
     public:
         enum TYPE{ WAIT, TEXT, NORMAL, HAND /*,...*/ };
-        StandardCursor(const TYPE t);
+        explicit StandardCursor(TYPE t);
         void set(const sf::WindowHandle& aWindowHandle) const;
         ~StandardCursor();
     };
