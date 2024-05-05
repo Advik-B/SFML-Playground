@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "Button.hpp"
 
+
 class Game {
 private:
     sf::RenderWindow* window;
