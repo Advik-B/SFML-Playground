@@ -22,7 +22,6 @@ namespace UI {
         void setFont(sf::Font& font);
         void setBackColor(sf::Color color);
         void setTextColor(sf::Color color);
-        void setCharacterSize(unsigned int size);
         void setPosition(const sf::Vector2f& pos);
         void setString(const std::string& str);
         void setTexture(sf::Texture* texture);
@@ -34,6 +33,7 @@ namespace UI {
         void setFontSize(unsigned int size);
 
         bool isPressed(const sf::Event& ev);
+        void update(const sf::Vector2f& mousePos);
     };
 
 } // UI
