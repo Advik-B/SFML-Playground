@@ -1,16 +1,29 @@
 #include <iostream>
 #include "Game.hpp"
 #include "fonts/Roboto-Regular.hpp"
+#include "pratibha.hpp"
 
 void Game::initVariables() {
     this->window = nullptr;
     sf::Font font;
-    if (!font.loadFromMemory(Roboto, sizeof Roboto)) {
+    if (!font.loadFromMemory(Roboto, sizeof Roboto /  sizeof Roboto[0])) {
         std::cerr << "Error loading font" << std::endl;
         exit(-1);
     }
+//    auto* texture = new sf::Texture;
+//    if (!texture->loadFromMemory(pratibha, sizeof pratibha / sizeof pratibha[0])) {
+//        std::cerr << "Error loading texture" << std::endl;
+//        exit(-1);
+//    }
     this->button.setFont(font);
     this->button.setPosition({100.f, 100.f});
+    this->button.setString("Hello World");
+    this->button.setTextColor(sf::Color::Black);
+//    this->button.setTexture(texture);
+    this->button.setSize({200.f, 100.f});
+    this->button.setOutlineThickness(2.f);
+    this->button.setFontSize(30);
+//    this->button.setOutlineColor(sf::Color::White);
 
 }
 
@@ -53,6 +66,10 @@ while (this->window->pollEvent(this->ev)) {
                 }
                 break;
             default:
+                if (this->button.isPressed(ev)) {
+                    std::cout << "Button Pressed" << std::endl;
+                    button.setBackColor(sf::Color::Green);
+                }
                 break;
         }
     }
