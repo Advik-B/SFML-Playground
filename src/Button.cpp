@@ -1,4 +1,5 @@
 #include "Button.hpp"
+#include "StandardCursor.cpp"
 
 namespace UI {
     Button::Button() {
@@ -111,15 +112,14 @@ namespace UI {
         this->text.setPosition({x, y});
     }
 
-    void Button::update(const sf::Vector2f &mousePos) {
+    void Button::update(const sf::Vector2i &mousePos, sf::Window &window) {
         if (this->isMouseOver(mousePos)) {
             this->shape.setFillColor(sf::Color::Red);
+             sf::StandardCursor(sf::StandardCursor::HAND).set(window.getSystemHandle());
         } else {
             this->shape.setFillColor(sf::Color::White);
+            sf::StandardCursor(sf::StandardCursor::NORMAL).set(window.getSystemHandle());
         }
-
-        // Change the mouse cursor when it is over the button
-
     }
 
 }
