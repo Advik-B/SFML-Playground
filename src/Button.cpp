@@ -31,9 +31,6 @@ namespace UI {
         this->text.setFillColor(color);
     }
 
-    void Button::setCharacterSize(unsigned int size) {
-        this->text.setCharacterSize(size);
-    }
 
     void Button::setPosition(const sf::Vector2f& pos) {
         this->shape.setPosition(pos);
@@ -112,6 +109,17 @@ namespace UI {
         float x = this->shape.getPosition().x + this->shape.getGlobalBounds().width / 2.f - this->text.getGlobalBounds().width / 2.f;
         float y = this->shape.getPosition().y + this->shape.getGlobalBounds().height / 2.f - this->text.getGlobalBounds().height / 2.f;
         this->text.setPosition({x, y});
+    }
+
+    void Button::update(const sf::Vector2f &mousePos) {
+        if (this->isMouseOver(mousePos)) {
+            this->shape.setFillColor(sf::Color::Red);
+        } else {
+            this->shape.setFillColor(sf::Color::White);
+        }
+
+        // Change the mouse cursor when it is over the button
+
     }
 
 }
