@@ -7,16 +7,16 @@ sf::StandardCursor::StandardCursor(const sf::StandardCursor::TYPE t)
     switch(t)
     {
         case sf::StandardCursor::WAIT :
-            Cursor = LoadCursor(NULL, IDC_WAIT);
+            Cursor = LoadCursor(nullptr, IDC_WAIT);
         break;
         case sf::StandardCursor::HAND :
-            Cursor = LoadCursor(NULL, IDC_HAND);
+            Cursor = LoadCursor(nullptr, IDC_HAND);
         break;
         case sf::StandardCursor::NORMAL :
-            Cursor = LoadCursor(NULL, IDC_ARROW);
+            Cursor = LoadCursor(nullptr, IDC_ARROW);
         break;
         case sf::StandardCursor::TEXT :
-            Cursor = LoadCursor(NULL, IDC_IBEAM);
+            Cursor = LoadCursor(nullptr, IDC_IBEAM);
         break;
         //For more cursor options on Windows go here:
         // http://msdn.microsoft.com/en-us/library/ms648391%28v=vs.85%29.aspx
