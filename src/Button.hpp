@@ -13,6 +13,7 @@ namespace UI {
         sf::Texture* texture;
 
         bool isMouseOver(const sf::Vector2f& mousePos);
+        static float getFontSizes(const sf::Font& font, const std::string& str, unsigned int size);
 
     public:
         Button();
@@ -26,6 +27,11 @@ namespace UI {
         void setString(const std::string& str);
         void setTexture(sf::Texture* texture);
         void render_to(sf::RenderTarget& target);
+        void setSize(const sf::Vector2f& size);
+        void setOutlineColor(const sf::Color& color);
+        void setFontStyle(sf::Text::Style style);
+        void setOutlineThickness(float thickness);
+        void setFontSize(unsigned int size);
 
         bool isPressed(const sf::Event& ev);
     };
