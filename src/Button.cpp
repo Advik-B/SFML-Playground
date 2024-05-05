@@ -56,13 +56,13 @@ namespace UI {
         target.draw(this->text);
     }
 
-    bool Button::isMouseOver(const sf::Vector2f& mousePos) {
-        return this->shape.getGlobalBounds().contains(mousePos);
+    bool Button::isMouseOver(const sf::Vector2i& mousePos) {
+        return this->shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos));
     }
 
     bool Button::isPressed(const sf::Event& ev) {
         if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Left) {
-            if (this->isMouseOver({static_cast<float>(ev.mouseButton.x), static_cast<float>(ev.mouseButton.y)})) {
+            if (this->isMouseOver({ev.mouseButton.x, ev.mouseButton.y})) {
                 return true;
             }
         }
@@ -114,10 +114,8 @@ namespace UI {
 
     void Button::update(const sf::Vector2i &mousePos, sf::Window &window) {
         if (this->isMouseOver(mousePos)) {
-            this->shape.setFillColor(sf::Color::Red);
              sf::StandardCursor(sf::StandardCursor::HAND).set(window.getSystemHandle());
         } else {
-            this->shape.setFillColor(sf::Color::White);
             sf::StandardCursor(sf::StandardCursor::NORMAL).set(window.getSystemHandle());
         }
     }
