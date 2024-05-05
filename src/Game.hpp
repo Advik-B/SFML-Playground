@@ -1,5 +1,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
+#endif
 
 #include <SFML/Graphics.hpp>
 #include "Button.hpp"
