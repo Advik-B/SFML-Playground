@@ -77,4 +77,5 @@ while (this->window->pollEvent(this->ev)) {
 
 void Game::update() {
     this->pollEvents();
+    this->button.update(sf::Mouse::getPosition(*this->window), *this->window);
 }
