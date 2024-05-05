@@ -26,11 +26,13 @@ void Game::initVariables() {
     this->button.setFontSize(30);
 //    this->button.setOutlineColor(sf::Color::White);
 
+
 }
 
 void Game::initWindow() {
     this->videoMode = sf::VideoMode(800, 600);
     this->window = new sf::RenderWindow(this->videoMode, "SFML with C++");
+    this->window->setVerticalSyncEnabled(true);
 }
 
 Game::Game() {
@@ -66,6 +68,9 @@ while (this->window->pollEvent(this->ev)) {
                     this->window->close();
                 }
                 break;
+            case sf::Event::Resized:
+                this->window->setView(sf::View(sf::FloatRect(0.f, 0.f, ev.size.width, ev.size.height)));
+                break;
             default:
                 if (this->button.isPressed(ev)) {
                     IC();
@@ -76,6 +81,7 @@ while (this->window->pollEvent(this->ev)) {
 }
 
 void Game::update() {
+    this->clock.restart();
     this->pollEvents();
     this->button.update(sf::Mouse::getPosition(*this->window), *this->window);
 }

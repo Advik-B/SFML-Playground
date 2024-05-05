@@ -14,6 +14,7 @@ private:
     void initVariables();
     void initWindow();
     UI::Button button;
+    sf::Clock clock;
 public:
     sf::Event ev;
 
