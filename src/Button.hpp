@@ -13,7 +13,7 @@ namespace UI {
         sf::Text text;
         sf::Texture* texture;
 
-        bool isMouseOver(const sf::Vector2f& mousePos);
+        bool isMouseOver(const sf::Vector2i& mousePos);
         static float getFontSizes(const sf::Font& font, const std::string& str, unsigned int size);
 
     public:
