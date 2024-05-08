@@ -109,7 +109,7 @@ namespace UI {
         this->text.setCharacterSize(size);
         float x = this->shape.getPosition().x + this->shape.getGlobalBounds().width / 2.f - this->text.getGlobalBounds().width / 2.f;
         float y = this->shape.getPosition().y + this->shape.getGlobalBounds().height / 2.f - this->text.getGlobalBounds().height / 2.f;
-        this->text.setPosition({x, y});
+        this->text.setPosition({x, y - 10});
     }
 
     void Button::update(const sf::Vector2i &mousePos, sf::Window &window) {
