@@ -3,18 +3,19 @@
 #endif
 
 #include <SFML/Graphics.hpp>
-#include "Button.hpp"
-
+#include "UI.hpp"
 
 class Game {
 private:
     sf::RenderWindow* window;
     sf::VideoMode videoMode;
+    UI::Button button;
+    sf::Clock clock;
+    sf::Texture* currentGrab;
 
     void initVariables();
     void initWindow();
-    UI::Button button;
-    sf::Clock clock;
+    void takeScreenshot() const;
 public:
     sf::Event ev;
 
