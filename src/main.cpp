@@ -1,5 +1,4 @@
 #include "Game.cpp"
-#include "Button.cpp"
 
 int main() {
     Game game;
