@@ -7,17 +7,18 @@
 
 class Game {
 private:
-    sf::RenderWindow* window;
+    sf::RenderWindow *window{};
     sf::VideoMode videoMode;
     UI::Button button;
     sf::Clock clock;
-    sf::Texture* currentGrab;
+    sf::Texture *currentGrab{};
 
     void initVariables();
     void initWindow();
     void takeScreenshot() const;
+
 public:
-    sf::Event ev;
+    sf::Event ev{};
 
     Game();
     virtual ~Game();
@@ -27,4 +28,3 @@ public:
     void update();
     void render();
 };
-
