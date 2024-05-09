@@ -15,25 +15,19 @@ namespace UI {
         this->texture = nullptr;
     }
 
-    Button::~Button() {
-        delete this->texture;
-    }
+    Button::~Button() { delete this->texture; }
 
-    void Button::setFont(sf::Font& font) {
+    void Button::setFont(sf::Font &font) {
         this->font = font;
         this->text.setFont(this->font);
     }
 
-    void Button::setBackColor(sf::Color color) {
-        this->shape.setFillColor(color);
-    }
+    void Button::setBackColor(sf::Color color) { this->shape.setFillColor(color); }
 
-    void Button::setTextColor(sf::Color color) {
-        this->text.setFillColor(color);
-    }
+    void Button::setTextColor(sf::Color color) { this->text.setFillColor(color); }
 
 
-    void Button::setPosition(const sf::Vector2f& pos) {
+    void Button::setPosition(const sf::Vector2f &pos) {
         this->shape.setPosition(pos);
 
         float x = pos.x + this->shape.getGlobalBounds().width / 2.f - this->text.getGlobalBounds().width / 2.f;
@@ -42,25 +36,23 @@ namespace UI {
         this->text.setPosition({x - 20, y});
     }
 
-    void Button::setString(const std::string& str) {
-        this->text.setString(str);
-    }
+    void Button::setString(const std::string &str) { this->text.setString(str); }
 
-    void Button::setTexture(sf::Texture* texture) {
+    void Button::setTexture(sf::Texture *texture) {
         this->texture = texture;
         this->shape.setTexture(this->texture);
     }
 
-    void Button::render_to(sf::RenderTarget& target) {
+    void Button::render_to(sf::RenderTarget &target) {
         target.draw(this->shape);
         target.draw(this->text);
     }
 
-    bool Button::isMouseOver(const sf::Vector2i& mousePos) {
+    bool Button::isMouseOver(const sf::Vector2i &mousePos) {
         return this->shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePos));
     }
 
-    bool Button::isPressed(const sf::Event& ev) {
+    bool Button::isPressed(const sf::Event &ev) {
         if (ev.type == sf::Event::MouseButtonPressed && ev.mouseButton.button == sf::Mouse::Left) {
             if (this->isMouseOver({ev.mouseButton.x, ev.mouseButton.y})) {
                 return true;
@@ -72,8 +64,10 @@ namespace UI {
     void Button::setSize(const sf::Vector2f &size) {
         this->shape.setSize(size);
         // Calculate the new position of the text
-        float x = this->shape.getPosition().x + this->shape.getGlobalBounds().width / 2.f - this->text.getGlobalBounds().width / 2.f;
-        float y = this->shape.getPosition().y + this->shape.getGlobalBounds().height / 2.f - this->text.getGlobalBounds().height / 2.f;
+        float x = this->shape.getPosition().x + this->shape.getGlobalBounds().width / 2.f -
+                  this->text.getGlobalBounds().width / 2.f;
+        float y = this->shape.getPosition().y + this->shape.getGlobalBounds().height / 2.f -
+                  this->text.getGlobalBounds().height / 2.f;
         this->text.setPosition({x, y});
 
         // Calculate the new font size of the text
@@ -92,32 +86,28 @@ namespace UI {
         return text.getGlobalBounds().width;
     }
 
-    void Button::setOutlineColor(const sf::Color &color) {
-        this->shape.setOutlineColor(color);
-    }
+    void Button::setOutlineColor(const sf::Color &color) { this->shape.setOutlineColor(color); }
 
-    void Button::setFontStyle(sf::Text::Style style) {
-        this->text.setStyle(style);
-    }
+    void Button::setFontStyle(sf::Text::Style style) { this->text.setStyle(style); }
 
-    void Button::setOutlineThickness(float thickness) {
-        this->shape.setOutlineThickness(thickness);
-    }
+    void Button::setOutlineThickness(float thickness) { this->shape.setOutlineThickness(thickness); }
 
     void Button::setFontSize(unsigned int size) {
         // Calculate the new position of the text and set the new font size
         this->text.setCharacterSize(size);
-        float x = this->shape.getPosition().x + this->shape.getGlobalBounds().width / 2.f - this->text.getGlobalBounds().width / 2.f;
-        float y = this->shape.getPosition().y + this->shape.getGlobalBounds().height / 2.f - this->text.getGlobalBounds().height / 2.f;
+        float x = this->shape.getPosition().x + this->shape.getGlobalBounds().width / 2.f -
+                  this->text.getGlobalBounds().width / 2.f;
+        float y = this->shape.getPosition().y + this->shape.getGlobalBounds().height / 2.f -
+                  this->text.getGlobalBounds().height / 2.f;
         this->text.setPosition({x, y - 10});
     }
 
     void Button::update(const sf::Vector2i &mousePos, sf::Window &window) {
         if (this->isMouseOver(mousePos)) {
-             sf::StandardCursor(sf::StandardCursor::HAND).set(window.getSystemHandle());
+            sf::StandardCursor(sf::StandardCursor::HAND).set(window.getSystemHandle());
         } else {
             sf::StandardCursor(sf::StandardCursor::NORMAL).set(window.getSystemHandle());
         }
     }
 
-}
+} // namespace UI
