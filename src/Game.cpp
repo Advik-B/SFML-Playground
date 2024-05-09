@@ -46,7 +46,6 @@ void Game::render() {
     this->window->clear({37, 150, 190});
 
     this->button.render_to(*this->window);
-    this->window->draw(this->circle);
 
     this->window->display();
 }
