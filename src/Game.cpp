@@ -1,5 +1,5 @@
-#include <iostream>
 #include "Game.hpp"
+#include <iostream>
 #include "fonts/Roboto-Regular.hpp"
 
 #include "icecream.hpp"
@@ -10,7 +10,7 @@ void Game::initVariables() {
     this->window = nullptr;
     this->currentGrab = new sf::Texture();
     sf::Font font;
-    if (!font.loadFromMemory(Roboto, sizeof Roboto /  sizeof Roboto[0])) {
+    if (!font.loadFromMemory(Roboto, sizeof Roboto / sizeof Roboto[0])) {
         std::cerr << "Error loading font" << std::endl;
         exit(-1);
     }
@@ -37,13 +37,9 @@ Game::Game() {
     initWindow(); // why not initVariables() first?
 }
 
-Game::~Game() {
-    delete this->window;
-}
+Game::~Game() { delete this->window; }
 
-bool Game::running() const {
-    return this->window->isOpen();
-}
+bool Game::running() const { return this->window->isOpen(); }
 
 
 void Game::render() {
@@ -56,7 +52,7 @@ void Game::render() {
 }
 
 void Game::pollEvents() {
-while (this->window->pollEvent(this->ev)) {
+    while (this->window->pollEvent(this->ev)) {
         switch (ev.type) {
             case sf::Event::Closed:
                 this->window->close();
@@ -88,5 +84,4 @@ void Game::update() {
     this->pollEvents();
     this->takeScreenshot();
     this->button.setTexture(currentGrab);
-
 }
